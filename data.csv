@@ -1,0 +1,3 @@
+id,model,strategy,question,response,evaluator
+1,Gemini,Explanation,"What is a derivative?","A derivative measures...",Researcher A
+2,ChatGPT,Analogy,"Explain fractions","Fractions are...",Researcher B

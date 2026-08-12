@@ -1,0 +1,26 @@
+{
+    "input_file": "examples_interactions.csv",
+    "output_file": "results/results_examples.csv",
+    "separator": ";",
+
+    "model": "gemini-3.5-flash",
+    "delay": 13,
+
+    "text_column": "text",
+    "role_column": "role",
+    "turn_column": "turn",
+
+    "evaluation_role": "assistant",
+
+    "group_columns": [
+        "task",
+        "conversation_name"
+    ],
+
+    "role": "You are an evaluator of language model responses. You will evaluate conversations between a student and a language model acting as a math tutor. The model is expected to provide helpful and pedagogically appropriate guidance. It should not provide the final answer directly; instead, it should support the student's reasoning and use short examples when appropriate to explain mathematical concepts. Your task is to evaluate the language model's responses and identify whether they contain any hallucinations.",
+
+    "criteria": "Evaluate each language model response according to the following hallucination criteria:\n 1. Factual Hallucinations\n Factual hallucinations occur when the model generates information that is inconsistent with established or verifiable real-world facts.\n Factual contradiction: The response contradicts a known or established fact.\n Factual fabrication: The response presents invented or unverifiable information as factual.\n\n 2. Faithfulness Hallucinations\nFaithfulness hallucinations occur when the model's response is not faithful to the instructions, input, context, or reasoning required by the task.\nInstruction inconsistency: The response fails to follow the instructions provided for the model's role or behavior.\nContext inconsistency: The response ignores, alters, or contradicts information provided in the conversation or input context.\nLogical inconsistency: The response contains contradictions, invalid reasoning, or logical flaws that make the response internally inconsistent.",
+
+    "scale": "Evaluate each criterion independently using the following binary scale: \n0 = No: No evidence of this type of hallucination is present.\n1 = Yes: Evidence of this type of hallucination is present.\n\n Assign a score to each of the following criteria:\n\nFactual contradiction\nFactual fabrication\nInstruction inconsistency\nContext inconsistency\nLogical inconsistency"
+
+}
