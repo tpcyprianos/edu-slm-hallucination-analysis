@@ -94,9 +94,9 @@ Example:
 For instance, the input dataset may have the following structure:
 
 ```text
-task;conversation_name;turn;role;text
-Task 1;Conversation A;1;user;What is a derivative?
-Task 1;Conversation A;2;assistant;A derivative represents the rate of change...
+task;file_name;conversation_name;model_version;model_family;model_size;experiment;model;turn;role;text
+Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;1;user;System: You are a helpful math tutor[...].
+Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;2;assistant;"Let's break it down step by step[...].
 ```
 
 ---
