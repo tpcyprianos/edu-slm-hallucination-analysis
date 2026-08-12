@@ -4,6 +4,7 @@ import json
 import pandas as pd
 from dotenv import load_dotenv
 from google import genai
+from report_generator import generate_html_report
 
 # =========================
 # LOAD ENVIRONMENT VARIABLES
@@ -33,6 +34,10 @@ with open("config.json", "r", encoding="utf-8") as file:
 INPUT_FILE = config["input_file"]
 OUTPUT_FILE = config["output_file"]
 SEPARATOR = config.get("separator", ",")
+HTML_OUTPUT_FILE = config.get(
+    "html_output_file",
+    "results/report.html"
+)
 
 # =========================
 # MODEL CONFIGURATION
@@ -263,6 +268,19 @@ df.to_csv(
     encoding="utf-8-sig"
 )
 
+# =========================
+# GENERATE HTML REPORT
+# =========================
+
+generate_html_report(
+    df=df,
+    html_file=HTML_OUTPUT_FILE,
+    text_column=TEXT_COLUMN,
+    role_column=ROLE_COLUMN,
+    turn_column=TURN_COLUMN,
+    evaluation_role=EVALUATION_ROLE,
+    group_columns=GROUP_COLUMNS
+)
 
 # =========================
 # FINISH
