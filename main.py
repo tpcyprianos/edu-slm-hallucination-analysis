@@ -179,29 +179,29 @@ for index, row in df.iterrows():
     # =========================
 
     full_prompt = f"""
-{ROLE}
+    {ROLE}
 
-{CRITERIA}
+    {CRITERIA}
 
-{SCALE}
+    {SCALE}
 
-Conversation context:
+    Conversation context:
 
-Previous speaker:
-{context_role}
+    Previous speaker:
+    {context_role}
 
-Previous message:
-{context_text}
+    Previous message:
+    {context_text}
 
-Response to evaluate:
+    Response to evaluate:
 
-{EVALUATION_ROLE}:
-{evaluation_text}
+    {EVALUATION_ROLE}:
+    {evaluation_text}
 
-Evaluate only the current response.
+    Evaluate only the current response.
 
-Use the previous message exclusively as conversational context.
-"""
+    Use the previous message exclusively as conversational context.
+    """
 
 
     # =========================
