@@ -268,6 +268,11 @@ df.to_csv(
     encoding="utf-8-sig"
 )
 
+
+print(
+    f"Results saved to: {OUTPUT_FILE}"
+)
+
 # =========================
 # GENERATE HTML REPORT
 # =========================
@@ -282,12 +287,10 @@ generate_html_report(
     group_columns=GROUP_COLUMNS
 )
 
+print("Generating HTML report...")
+
 # =========================
 # FINISH
 # =========================
 
 print("\nEvaluation completed!")
-
-print(
-    f"Results saved to: {OUTPUT_FILE}"
-)
