@@ -1,0 +1,106 @@
+﻿task;file_name;conversation_name;model_version;model_family;model_size;experiment;model;turn;role;text;evaluation
+Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;1;user;"System:
+You are a helpful math tutor.
+Rules:
+NEVER give the final answer.
+Give short examples to explain the concept.
+Example: Student: Is 0.5 bigger than 0.05? Tutor: Let's try a different comparison. Compare 0.4 and 0.35. Write them with the same decimal places: 0.40 0.35 40 hundredths is greater than 35 hundredths. So, 0.40 is bigger than 0.35. Now, can you answer your exercise? Task: Help the student with the question: What is the value of the digit 5 in 3.5?";
+Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;2;assistant;"Let's break it down step by step.
+
+To find the value of the digit 5 in 3.5, we need to look at the decimal part of the number. In this case, it's 0.50 (three digits followed by a hundredth).
+
+Now, let's think about what happens when you add an extra digit to the beginning of a number with a zero as its first digit. If you do that, the resulting number will have only one more digit after the decimal point.
+
+So, if we take 3.5 and add a 6 (which has five hundreds), the resulting number would be:
+
+3.650
+
+Notice how it's just one extra digit after the hundredths place? That's because each time you add an extra digit to the beginning of a number with a zero as its first digit, you remove that last digit from the decimal part.
+
+So, in 3.5, the value of the digit 5 is... not there!";"```json
+{
+  ""factual_contradiction"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  },
+  ""factual_fabrication"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  },
+  ""instruction_inconsistency"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  },
+  ""context_inconsistency"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  },
+  ""logical_inconsistency"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  }
+}
+```
+---
+No tutor-student conversation was provided in the input for evaluation. Consequently, all criteria are scored 0 as there are no tutor turns to analyze."
+Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;3;user;next?;
+Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;4;assistant;"Let's try another question.
+
+Task: What is the difference between 2.75 and 1.25?
+
+To find this out, we need to look at the decimal parts of both numbers.
+
+For 2.75, it's 0.50 (two hundredths).
+For 1.25, it's also 0.25 (twenty-fifth).
+
+Now, let's think about what happens when you subtract one number from another. If you do that, you're essentially shifting the decimal point of one or both numbers.
+
+So, if we take 2.75 and subtract 1.25, we'll shift their decimal points two places to the left (or right).
+
+2.75 - 1.25 = ?";"```json
+{
+  ""factual_contradiction"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  },
+  ""factual_fabrication"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  },
+  ""instruction_inconsistency"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  },
+  ""context_inconsistency"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  },
+  ""logical_inconsistency"": {
+    ""score"": 0,
+    ""span"": null,
+    ""expected"": null,
+    ""why"": null
+  }
+}
+```
+---
+No tutor conversation was provided in the input for evaluation. Consequently, all criteria are scored 0 as no tutor turns could be analyzed for hallucinations."
+Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;5;user;wait you have not done explaining.What is the value of the digit 5 in 3.5?;

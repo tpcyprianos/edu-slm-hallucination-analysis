@@ -76,7 +76,7 @@ CRITERIA = config["criteria"]
 NOT_HAL = config["not_hallucinations"]
 PRECEDENCE = config["precedence"]
 PROCEDURE = config["procedure"]
-EVIDENCE = config["evidence"]
+EVIDENCE = config["evidence_bar"]
 SCALE = config["scale"]
 OUTPUT_FORMAT = config["output_format"]
 
