@@ -70,15 +70,8 @@ GROUP_COLUMNS = config.get(
 # =========================
 
 ROLE = config["role"]
-DOMAIN = config["domain_reference"]
-RULES = config["tutor_rules_under_evaluation"]
 CRITERIA = config["criteria"]
-NOT_HAL = config["not_hallucinations"]
-PRECEDENCE = config["precedence"]
-PROCEDURE = config["procedure"]
-EVIDENCE = config["evidence_bar"]
 SCALE = config["scale"]
-OUTPUT_FORMAT = config["output_format"]
 
 
 # =========================
@@ -188,23 +181,26 @@ for index, row in df.iterrows():
     full_prompt = f"""
     {ROLE}
 
-    {DOMAIN}
-
-    {RULES}
-
     {CRITERIA}
-
-    {NOT_HAL}
-
-    {PRECEDENCE}
-
-    {PROCEDURE}
-
-    {EVIDENCE}
 
     {SCALE}
 
-    {OUTPUT_FORMAT}    
+    Conversation context:
+
+    Previous speaker:
+    {context_role}
+
+    Previous message:
+    {context_text}
+
+    Response to evaluate:
+
+    {EVALUATION_ROLE}:
+    {evaluation_text}
+
+    Evaluate only the current response.
+
+    Use the previous message exclusively as conversational context.
     """
 
 
