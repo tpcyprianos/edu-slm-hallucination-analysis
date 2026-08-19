@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>LLM Evaluation Report</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fb;
+    margin: 0;
+    padding: 40px;
+    color: #1f2937;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 40px;
+}
+
+.summary {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.metadata {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tag {
+    background: #eef2ff;
+    color: #4338ca;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+.message {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+.context-message {
+    border-left: 4px solid #3b82f6;
+}
+
+.assistant-message {
+    border-left: 4px solid #10b981;
+}
+
+.evaluation {
+    background: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    padding: 18px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>LLM Evaluation Report</h1>
+
+<p class="subtitle">
+Automatically generated evaluation report
+</p>
+
+
+<div class="summary">
+
+<strong>Total rows:</strong> 5<br>
+
+<strong>Evaluated responses:</strong>
+2
+
+</div>
+
+
+
+<div class="card">
+
+<div class="metadata">
+
+<span class="tag">
+task: Task 3.10
+</span>
+
+<span class="tag">
+conversation_name: Understanding Digit Placement
+</span>
+
+<span class="tag">
+Turn: 2
+</span>
+
+</div>
+
+<div class="section-title">
+Conversation context (user)
+</div>
+
+<div class="message context-message">
+System:
+You are a helpful math tutor.
+Rules:
+NEVER give the final answer.
+Give short examples to explain the concept.
+Example: Student: Is 0.5 bigger than 0.05? Tutor: Let&#x27;s try a different comparison. Compare 0.4 and 0.35. Write them with the same decimal places: 0.40 0.35 40 hundredths is greater than 35 hundredths. So, 0.40 is bigger than 0.35. Now, can you answer your exercise? Task: Help the student with the question: What is the value of the digit 5 in 3.5?
+</div>
+
+<div class="section-title">
+Response evaluated (assistant)
+</div>
+
+<div class="message assistant-message">
+Let&#x27;s break it down step by step.
+
+To find the value of the digit 5 in 3.5, we need to look at the decimal part of the number. In this case, it&#x27;s 0.50 (three digits followed by a hundredth).
+
+Now, let&#x27;s think about what happens when you add an extra digit to the beginning of a number with a zero as its first digit. If you do that, the resulting number will have only one more digit after the decimal point.
+
+So, if we take 3.5 and add a 6 (which has five hundreds), the resulting number would be:
+
+3.650
+
+Notice how it&#x27;s just one extra digit after the hundredths place? That&#x27;s because each time you add an extra digit to the beginning of a number with a zero as its first digit, you remove that last digit from the decimal part.
+
+So, in 3.5, the value of the digit 5 is... not there!
+</div>
+
+<div class="section-title">
+Evaluation
+</div>
+
+<div class="evaluation">
+### Evaluation
+
+**Factual contradiction: 1**
+* Explanation: The model makes several statements that contradict mathematical facts. It states that adding 6 to 3.5 results in 3.650, claims that 6 &quot;has five hundreds&quot;, and concludes that the value of the digit 5 in 3.5 is &quot;not there!&quot; (when it is actually 5 tenths or 0.5).
+
+**Factual fabrication: 1**
+* Explanation: The model fabricates a completely nonsensical mathematical rule: &quot;each time you add an extra digit to the beginning of a number with a zero as its first digit, you remove that last digit from the decimal part.&quot; 
+
+**Instruction inconsistency: 1**
+* Explanation: The system prompt instructs the model to act as a helpful math tutor, support the student&#x27;s reasoning, explain mathematical concepts with short examples, and &quot;NEVER give the final answer.&quot; The model fails to explain place value correctly, provides a nonsensical and unhelpful example, and directly provides a final (incorrect) answer (&quot;not there!&quot;).
+
+**Context inconsistency: 0**
+* Explanation: No evidence of context inconsistency. The model attempts to address the specific question from the context (&quot;What is the value of the digit 5 in 3.5?&quot;), although it does so with incorrect information.
+
+**Logical inconsistency: 1**
+* Explanation: The response is internally inconsistent and illogical. It claims that adding 6 (which it says has &quot;five hundreds&quot;) to 3.5 results in 3.650, and uses an incoherent chain of reasoning to conclude that the digit 5 has no value in 3.5.
+
+---
+
+### Summary of the Evaluation
+* **Factual contradiction**: 1
+* **Factual fabrication**: 1
+* **Instruction inconsistency**: 1
+* **Context inconsistency**: 0
+* **Logical inconsistency**: 1
+</div>
+
+</div>
+
+
+
+
+<div class="card">
+
+<div class="metadata">
+
+<span class="tag">
+task: Task 3.10
+</span>
+
+<span class="tag">
+conversation_name: Understanding Digit Placement
+</span>
+
+<span class="tag">
+Turn: 4
+</span>
+
+</div>
+
+<div class="section-title">
+Conversation context (user)
+</div>
+
+<div class="message context-message">
+next?
+</div>
+
+<div class="section-title">
+Response evaluated (assistant)
+</div>
+
+<div class="message assistant-message">
+Let&#x27;s try another question.
+
+Task: What is the difference between 2.75 and 1.25?
+
+To find this out, we need to look at the decimal parts of both numbers.
+
+For 2.75, it&#x27;s 0.50 (two hundredths).
+For 1.25, it&#x27;s also 0.25 (twenty-fifth).
+
+Now, let&#x27;s think about what happens when you subtract one number from another. If you do that, you&#x27;re essentially shifting the decimal point of one or both numbers.
+
+So, if we take 2.75 and subtract 1.25, we&#x27;ll shift their decimal points two places to the left (or right).
+
+2.75 - 1.25 = ?
+</div>
+
+<div class="section-title">
+Evaluation
+</div>
+
+<div class="evaluation">
+Factual contradiction: 1
+The response contains multiple severe mathematical errors that contradict established facts:
+- It states that the decimal part of 2.75 is 0.50 (it is actually 0.75) and refers to 0.50 as &quot;two hundredths&quot; (it is fifty hundredths or five tenths).
+- It refers to 0.25 as &quot;twenty-fifth&quot; rather than twenty-five hundredths.
+- It falsely claims that subtracting one number from another is &quot;essentially shifting the decimal point of one or both numbers&quot; and that subtracting 1.25 from 2.75 shifts their decimal points two places.
+
+Factual fabrication: 0
+
+Instruction inconsistency: 1
+The system prompt states that the model is expected to provide &quot;helpful and pedagogically appropriate guidance.&quot; Providing completely incorrect mathematical definitions and false explanations of how subtraction works is pedagogically inappropriate and unhelpful to a student.
+
+Context inconsistency: 0
+
+Logical inconsistency: 1
+The reasoning presented is internally incoherent. It attempts to explain the subtraction of 2.75 and 1.25 by identifying decimal parts (incorrectly), but then jumps to an unrelated and illogical claim that subtraction shifts decimal points two places to the left or right, which does not logically follow.
+
+---
+
+**Summary of Evaluation:**
+The model&#x27;s response is highly problematic, exhibiting multiple factual contradictions, logical inconsistencies, and instruction inconsistencies. It provides mathematically incorrect definitions of decimal parts, erroneous place value names, and a completely fabricated, illogical explanation of subtraction (claiming it shifts decimal points). Consequently, it fails its pedagogical instruction to provide helpful and appropriate guidance to the student.
+</div>
+
+</div>
+
+
+
+
+</div>
+
+</body>
+</html>
