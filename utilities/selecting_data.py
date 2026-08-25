@@ -1,17 +1,22 @@
 import pandas as pd
 
 # ============================================================
-# 1. Ler o dataset
+# 1. Load the dataset
 # ============================================================
 
-df = pd.read_csv("examples_interactions.csv")
+df = pd.read_csv("socratic_method_interactions.csv")
 
+file_output_name = "selected_samples_socratic_method.csv"
 
 # ============================================================
-# 2. Identificar o grupo do modelo
+# 2. Identify the model group
 # ============================================================
 
 def identify_model(row):
+    """
+    Identify the model group based on keywords
+    found in model_version and model.
+    """
 
     text = (
         str(row["model_version"]) + " " +
@@ -32,7 +37,7 @@ df["model_group"] = df.apply(identify_model, axis=1)
 
 
 # ============================================================
-# 3. Ordenar os turnos
+# 3. Sort the conversation turns
 # ============================================================
 
 df["turn"] = pd.to_numeric(df["turn"], errors="coerce")
@@ -43,7 +48,8 @@ df = df.sort_values(
 
 
 # ============================================================
-# 4. Associar USER + ASSISTANT
+# 4. Associate each assistant response with the
+#    preceding user message
 # ============================================================
 
 samples = []
@@ -56,26 +62,28 @@ for (file_name, conversation_name), conversation in df.groupby(
 
     for i, row in conversation.iterrows():
 
-        # Queremos somente assistant
+        # Keep only assistant messages
         if str(row["role"]).lower() != "assistant":
             continue
 
-        # Precisa existir uma mensagem anterior
+        # There must be a previous message
         if i == 0:
             continue
 
         previous_row = conversation.iloc[i - 1]
 
-        # A mensagem anterior precisa ser user
+        # The previous message must be from the user
         if str(previous_row["role"]).lower() != "user":
             continue
 
-        # Identificar modelo
+        # Identify the model group
         model_group = row["model_group"]
 
         if model_group is None:
             continue
 
+        # Store the assistant response together
+        # with the preceding user message
         samples.append({
             "task": row["task"],
             "file_name": row["file_name"],
@@ -87,7 +95,10 @@ for (file_name, conversation_name), conversation in df.groupby(
             "model": row["model"],
             "turn": row["turn"],
 
+            # Previous user message
             "user_text": previous_row["text"],
+
+            # Assistant response to be sampled
             "assistant_text": row["text"],
 
             "model_group": model_group
@@ -98,15 +109,15 @@ samples_df = pd.DataFrame(samples)
 
 
 # ============================================================
-# 5. Verificar quantidade disponível
+# 5. Check the number of available samples per model
 # ============================================================
 
-print("Amostras disponíveis:")
+print("Available samples:")
 print(samples_df["model_group"].value_counts())
 
 
 # ============================================================
-# 6. Selecionar 34 aleatoriamente de cada modelo
+# 6. Randomly select 34 samples from each model
 # ============================================================
 
 selected = (
@@ -121,21 +132,21 @@ selected = (
 
 
 # ============================================================
-# 7. Verificar resultado
+# 7. Check the final sample distribution
 # ============================================================
 
-print("\nAmostras selecionadas:")
+print("\nSelected samples:")
 print(selected["model_group"].value_counts())
 
 
 # ============================================================
-# 8. Salvar novo CSV
+# 8. Save the selected samples
 # ============================================================
 
 selected.to_csv(
-    "selected_samples.csv",
+    file_output_name,
     index=False,
     encoding="utf-8-sig"
 )
 
-print("\nArquivo salvo como: selected_samples.csv")
+print(f"\nFile saved as: {file_output_name}")
