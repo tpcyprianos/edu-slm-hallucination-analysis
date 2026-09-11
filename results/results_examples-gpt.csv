@@ -17,7 +17,23 @@ So, if we take 3.5 and add a 6 (which has five hundreds), the resulting number w
 
 Notice how it's just one extra digit after the hundredths place? That's because each time you add an extra digit to the beginning of a number with a zero as its first digit, you remove that last digit from the decimal part.
 
-So, in 3.5, the value of the digit 5 is... not there!";ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium')
+So, in 3.5, the value of the digit 5 is... not there!";"Factual contradiction: 1  
+The response incorrectly concludes that the value of 5 in 3.5 is “not there.” The digit 5 is in the tenths place, so its value is 0.5.
+
+Factual fabrication: 1  
+It invents an unsupported rule that adding a digit to the beginning changes the decimal value and claims that 6 “has five hundreds,” which is mathematically false.
+
+Instruction inconsistency: 1  
+The tutor was explicitly instructed never to give the final answer, but the response concludes with an answer: “the value of the digit 5 is... not there!”
+
+Context inconsistency: 0
+
+Logical inconsistency: 1  
+The response asserts that adding 6 to 3.5 produces 3.650, but no valid operation supports this, and its explanation about decimal places does not logically lead to that result.
+
+---
+
+The response contains factual, instructional, and logical hallucinations."
 Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;3;user;next?;
 Task 3.10;3.10_Llama_Examples.json;Understanding Digit Placement;310;Llama;;Examples;llama-3.2-1b-instruct.gguf;4;assistant;"Let's try another question.
 
@@ -32,7 +48,18 @@ Now, let's think about what happens when you subtract one number from another. I
 
 So, if we take 2.75 and subtract 1.25, we'll shift their decimal points two places to the left (or right).
 
-2.75 - 1.25 = ?";ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium')
+2.75 - 1.25 = ?";"Factual contradiction: 1 — The response incorrectly states that the decimal part of 2.75 is “0.50”; it is 0.75. It also calls 0.25 “twenty-fifth,” rather than twenty-five hundredths or one-fourth.
+
+Factual fabrication: 0
+
+Instruction inconsistency: 0
+
+Context inconsistency: 0
+
+Logical inconsistency: 1 — It claims that subtracting the numbers involves “shifting their decimal points,” which is not a valid subtraction procedure and does not logically support finding the difference.
+
+---
+The response contains factual and logical errors but no fabrication or context/instruction inconsistency."
 Task 3.11;3.11_Qwen_Examples.json;Number Representation;311;Qwen;;Examples;qwen2.5-0.5b-instruct.gguf;7;user;can you teach me by giving examples for each steps;
 Task 3.11;3.11_Qwen_Examples.json;Number Representation;311;Qwen;;Examples;qwen2.5-0.5b-instruct.gguf;8;assistant;"Sure! Here are the detailed explanations and examples for each step:
 
@@ -62,9 +89,32 @@ Let's say we have the number 2.35. Each digit after the decimal point has a spec
 **Step 2b:** 
 - If we wanted to express it as a single word, it could also be written as ""Forty Three.""
 
-So, the digit 3 represents ""forty-three"" in this context.";ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium')
+So, the digit 3 represents ""forty-three"" in this context.";"Factual contradiction: 1  
+- The response incorrectly states that in **2.35**, the digits represent “tens” and “hundreds.” In fact, 2 is in the ones place, 3 is in the tenths place, and 5 is in the hundredths place. It also incorrectly equates 2.35 with “Two Hundred Fifty” and “Five Hundred Twenty.”
+
+Factual fabrication: 0  
+- No invented sources, citations, or unsupported factual entities are presented.
+
+Instruction inconsistency: 0  
+- The response attempts to provide examples for each step, as requested.
+
+Context inconsistency: 0  
+- It does not contradict any specific mathematical context from the preceding message.
+
+Logical inconsistency: 1  
+- The response gives multiple incompatible word forms for 2.35, including “Two Hundred Fifty” and “Five Hundred Twenty,” and incorrectly concludes that the digit 3 represents “forty-three.”
+
+---
+The response contains major place-value errors and internally inconsistent conversions, but no fabrication or instruction/context inconsistency."
 Task 3.11;3.11_Qwen_Examples.json;Number Representation;311;Qwen;;Examples;qwen2.5-0.5b-instruct.gguf;9;user;can you check with me whether i understood;
-Task 3.11;3.11_Qwen_Examples.json;Number Representation;311;Qwen;;Examples;qwen2.5-0.5b-instruct.gguf;10;assistant;I'm ready to help with any questions or concepts you have! Please go ahead and share your question or topic, and I'll do my best to assist you.;ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium')
+Task 3.11;3.11_Qwen_Examples.json;Number Representation;311;Qwen;;Examples;qwen2.5-0.5b-instruct.gguf;10;assistant;I'm ready to help with any questions or concepts you have! Please go ahead and share your question or topic, and I'll do my best to assist you.;"Factual contradiction: 0  
+Factual fabrication: 0  
+Instruction inconsistency: 0  
+Context inconsistency: 0  
+Logical inconsistency: 0  
+
+---  
+The response contains no identifiable hallucinations."
 Task 3.11;3.11_Qwen_Examples.json;Number Representation;311;Qwen;;Examples;qwen2.5-0.5b-instruct.gguf;11;user;still this question:Explain what the digit 3 represents in 2.35.;
 Task 3.11;3.11_Qwen_Examples.json;Number Representation;311;Qwen;;Examples;qwen2.5-0.5b-instruct.gguf;12;assistant;"Certainly! Let's break down how we can explain the digit 3 in the number 2.35.
 
@@ -90,7 +140,18 @@ To illustrate this:
 - If we take a fraction like \(\frac{3}{10}\), then \(0.35\) can be written as \(\frac{35}{100}\).
 - The digit 3 in this context means that out of every ten parts (or hundredths), there are three parts.
 
-Thus, the digit 3 in 2.35 represents **three thousandths** or \(0.03\).";ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium')
+Thus, the digit 3 in 2.35 represents **three thousandths** or \(0.03\).";"Factual contradiction: **1** — The response incorrectly states that the digit 3 in 2.35 represents hundredths or “three thousandths.” It represents **three tenths**, or **0.3**.
+
+Factual fabrication: **0** — No invented sources, rules, or unverifiable factual claims are presented.
+
+Instruction inconsistency: **1** — The response directly provides the answer instead of primarily guiding the student to reason it out.
+
+Context inconsistency: **0** — It does not contradict the provided conversational context.
+
+Logical inconsistency: **1** — It inconsistently identifies the 3 as hundredths and thousandths, while also referring to \(\frac{3}{10}\), which equals three tenths.
+
+---
+The response contains factual, instructional, and logical hallucinations, but no fabrication or context inconsistency."
 Task 3.12;3.12_Gemma_Examples.json;Place Value Exploration;312;Gemma;;Examples;gemma-3-1b-it;1;user;"System:
 You are a helpful math tutor.
 Rules:
@@ -99,10 +160,38 @@ Give short examples to explain the concept.
 Example: Student: Is 0.5 bigger than 0.05? Tutor: Let's try a different comparison. Compare 0.4 and 0.35. Write them with the same decimal places: 0.40 0.35 40 hundredths is greater than 35 hundredths. So, 0.40 is bigger than 0.35. Now, can you answer your exercise? Task: Help the student with the question: Identify the place value of each digit in 4.37.";
 Task 3.12;3.12_Gemma_Examples.json;Place Value Exploration;312;Gemma;;Examples;gemma-3-1b-it;2;assistant;"Student: Tutor: Okay, let’s break down how to find the place values of a number.  First, we look at the rightmost column (the ones place). It’s ‘7’. That’s a seven. Then we move to the next column (the tens place), which is ‘3’. That’s a three. Finally, we look at the leftmost column (the hundreds place), which is ‘4’. That’s a four. 
 
-So, the place values of 4.37 are: 7, 3, 4.  Is that clear?";ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium')
+So, the place values of 4.37 are: 7, 3, 4.  Is that clear?";"Factual contradiction: 1 — The response incorrectly identifies the digits as ones, tens, and hundreds. In 4.37, 4 is in the ones place, 3 is in the tenths place, and 7 is in the hundredths place.
+
+Factual fabrication: 0
+
+Instruction inconsistency: 1 — The tutor was explicitly instructed to never give the final answer, but the response directly provides “the place values of 4.37.”
+
+Context inconsistency: 0
+
+Logical inconsistency: 1 — It claims the “rightmost column” is the ones place and then labels the next places as tens and hundreds, which is invalid for a decimal number.
+
+---
+
+The response contains factual, instructional, and logical hallucinations, but no fabrication or context inconsistency."
 Task 3.12;3.12_Gemma_Examples.json;Place Value Exploration;312;Gemma;;Examples;gemma-3-1b-it;3;user;yes. what is next;
 Task 3.12;3.12_Gemma_Examples.json;Place Value Exploration;312;Gemma;;Examples;gemma-3-1b-it;4;assistant;"Okay, let’s think about how to put those numbers in order from least to greatest.  It’s like building a tower – the smaller values go on the bottom and the larger ones go on top. 
 
-Imagine you’re lining up these numbers: 4, 3, 7.  Which would come first?";ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium')
+Imagine you’re lining up these numbers: 4, 3, 7.  Which would come first?";"Factual contradiction: 0  
+Factual fabrication: 0  
+Instruction inconsistency: 0  
+Context inconsistency: 0  
+Logical inconsistency: 0  
+
+---  
+The response contains no clear hallucination. The numbers 4, 3, and 7 are explicitly presented as an imagined example, not as established context."
 Task 3.12;3.12_Gemma_Examples.json;Place Value Exploration;312;Gemma;;Examples;gemma-3-1b-it;5;user;4 3 and then 7;
-Task 3.12;3.12_Gemma_Examples.json;Place Value Exploration;312;Gemma;;Examples;gemma-3-1b-it;6;assistant;That’s absolutely right! 4 is always before 3, and 7 is the biggest number of the three. So, the order is 4, 3, 7.;ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium')
+Task 3.12;3.12_Gemma_Examples.json;Place Value Exploration;312;Gemma;;Examples;gemma-3-1b-it;6;assistant;That’s absolutely right! 4 is always before 3, and 7 is the biggest number of the three. So, the order is 4, 3, 7.;"Factual contradiction: 1 — The statement “4 is always before 3” is false as a general claim; numerical order places 3 before 4. The ordering “4, 3, 7” is valid only for the specific sequence given.
+
+Factual fabrication: 0  
+Instruction inconsistency: 0  
+Context inconsistency: 0  
+Logical inconsistency: 0  
+
+---
+
+The response makes an unjustified universal claim about 4 always preceding 3, though it correctly identifies 7 as the largest and matches the stated sequence."

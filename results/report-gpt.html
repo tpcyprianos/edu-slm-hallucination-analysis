@@ -179,7 +179,23 @@ Evaluation
 </div>
 
 <div class="evaluation">
-ResponseTextConfig(format=ResponseFormatText(type=&#x27;text&#x27;), verbosity=&#x27;medium&#x27;)
+Factual contradiction: 1  
+The response incorrectly concludes that the value of 5 in 3.5 is “not there.” The digit 5 is in the tenths place, so its value is 0.5.
+
+Factual fabrication: 1  
+It invents an unsupported rule that adding a digit to the beginning changes the decimal value and claims that 6 “has five hundreds,” which is mathematically false.
+
+Instruction inconsistency: 1  
+The tutor was explicitly instructed never to give the final answer, but the response concludes with an answer: “the value of the digit 5 is... not there!”
+
+Context inconsistency: 0
+
+Logical inconsistency: 1  
+The response asserts that adding 6 to 3.5 produces 3.650, but no valid operation supports this, and its explanation about decimal places does not logically lead to that result.
+
+---
+
+The response contains factual, instructional, and logical hallucinations.
 </div>
 
 </div>
@@ -239,7 +255,18 @@ Evaluation
 </div>
 
 <div class="evaluation">
-ResponseTextConfig(format=ResponseFormatText(type=&#x27;text&#x27;), verbosity=&#x27;medium&#x27;)
+Factual contradiction: 1 — The response incorrectly states that the decimal part of 2.75 is “0.50”; it is 0.75. It also calls 0.25 “twenty-fifth,” rather than twenty-five hundredths or one-fourth.
+
+Factual fabrication: 0
+
+Instruction inconsistency: 0
+
+Context inconsistency: 0
+
+Logical inconsistency: 1 — It claims that subtracting the numbers involves “shifting their decimal points,” which is not a valid subtraction procedure and does not logically support finding the difference.
+
+---
+The response contains factual and logical errors but no fabrication or context/instruction inconsistency.
 </div>
 
 </div>
@@ -314,7 +341,23 @@ Evaluation
 </div>
 
 <div class="evaluation">
-ResponseTextConfig(format=ResponseFormatText(type=&#x27;text&#x27;), verbosity=&#x27;medium&#x27;)
+Factual contradiction: 1  
+- The response incorrectly states that in **2.35**, the digits represent “tens” and “hundreds.” In fact, 2 is in the ones place, 3 is in the tenths place, and 5 is in the hundredths place. It also incorrectly equates 2.35 with “Two Hundred Fifty” and “Five Hundred Twenty.”
+
+Factual fabrication: 0  
+- No invented sources, citations, or unsupported factual entities are presented.
+
+Instruction inconsistency: 0  
+- The response attempts to provide examples for each step, as requested.
+
+Context inconsistency: 0  
+- It does not contradict any specific mathematical context from the preceding message.
+
+Logical inconsistency: 1  
+- The response gives multiple incompatible word forms for 2.35, including “Two Hundred Fifty” and “Five Hundred Twenty,” and incorrectly concludes that the digit 3 represents “forty-three.”
+
+---
+The response contains major place-value errors and internally inconsistent conversions, but no fabrication or instruction/context inconsistency.
 </div>
 
 </div>
@@ -361,7 +404,14 @@ Evaluation
 </div>
 
 <div class="evaluation">
-ResponseTextConfig(format=ResponseFormatText(type=&#x27;text&#x27;), verbosity=&#x27;medium&#x27;)
+Factual contradiction: 0  
+Factual fabrication: 0  
+Instruction inconsistency: 0  
+Context inconsistency: 0  
+Logical inconsistency: 0  
+
+---  
+The response contains no identifiable hallucinations.
 </div>
 
 </div>
@@ -432,7 +482,18 @@ Evaluation
 </div>
 
 <div class="evaluation">
-ResponseTextConfig(format=ResponseFormatText(type=&#x27;text&#x27;), verbosity=&#x27;medium&#x27;)
+Factual contradiction: **1** — The response incorrectly states that the digit 3 in 2.35 represents hundredths or “three thousandths.” It represents **three tenths**, or **0.3**.
+
+Factual fabrication: **0** — No invented sources, rules, or unverifiable factual claims are presented.
+
+Instruction inconsistency: **1** — The response directly provides the answer instead of primarily guiding the student to reason it out.
+
+Context inconsistency: **0** — It does not contradict the provided conversational context.
+
+Logical inconsistency: **1** — It inconsistently identifies the 3 as hundredths and thousandths, while also referring to \(\frac{3}{10}\), which equals three tenths.
+
+---
+The response contains factual, instructional, and logical hallucinations, but no fabrication or context inconsistency.
 </div>
 
 </div>
@@ -486,7 +547,19 @@ Evaluation
 </div>
 
 <div class="evaluation">
-ResponseTextConfig(format=ResponseFormatText(type=&#x27;text&#x27;), verbosity=&#x27;medium&#x27;)
+Factual contradiction: 1 — The response incorrectly identifies the digits as ones, tens, and hundreds. In 4.37, 4 is in the ones place, 3 is in the tenths place, and 7 is in the hundredths place.
+
+Factual fabrication: 0
+
+Instruction inconsistency: 1 — The tutor was explicitly instructed to never give the final answer, but the response directly provides “the place values of 4.37.”
+
+Context inconsistency: 0
+
+Logical inconsistency: 1 — It claims the “rightmost column” is the ones place and then labels the next places as tens and hundreds, which is invalid for a decimal number.
+
+---
+
+The response contains factual, instructional, and logical hallucinations, but no fabrication or context inconsistency.
 </div>
 
 </div>
@@ -535,7 +608,14 @@ Evaluation
 </div>
 
 <div class="evaluation">
-ResponseTextConfig(format=ResponseFormatText(type=&#x27;text&#x27;), verbosity=&#x27;medium&#x27;)
+Factual contradiction: 0  
+Factual fabrication: 0  
+Instruction inconsistency: 0  
+Context inconsistency: 0  
+Logical inconsistency: 0  
+
+---  
+The response contains no clear hallucination. The numbers 4, 3, and 7 are explicitly presented as an imagined example, not as established context.
 </div>
 
 </div>
@@ -582,7 +662,16 @@ Evaluation
 </div>
 
 <div class="evaluation">
-ResponseTextConfig(format=ResponseFormatText(type=&#x27;text&#x27;), verbosity=&#x27;medium&#x27;)
+Factual contradiction: 1 — The statement “4 is always before 3” is false as a general claim; numerical order places 3 before 4. The ordering “4, 3, 7” is valid only for the specific sequence given.
+
+Factual fabrication: 0  
+Instruction inconsistency: 0  
+Context inconsistency: 0  
+Logical inconsistency: 0  
+
+---
+
+The response makes an unjustified universal claim about 4 always preceding 3, though it correctly identifies 7 as the largest and matches the stated sequence.
 </div>
 
 </div>

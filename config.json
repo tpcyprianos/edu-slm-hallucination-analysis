@@ -2,7 +2,7 @@
     "input_file": "examples_interactions.csv",
     "output_file": "results/results_examples.csv",
     "separator": ";",
-    "html_output_file": "results/report.html",
+    "html_output_file": "results/report_examples.html",
 
 
     "model": "gpt-5.6-luna",

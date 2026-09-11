@@ -227,12 +227,17 @@ for index, row in df.iterrows():
         input=full_prompt
     )
 
-    # Store result
+    # Store result - gemini
 
+    #results.append(
+    #    response.text
+    #)
+
+    
+    # Store result - gpt
     results.append(
-        response.text
+        response.output_text
     )
-
 
     # =========================
     # RATE LIMIT CONTROL
