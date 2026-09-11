@@ -9,7 +9,8 @@ def generate_html_report(
     role_column,
     turn_column,
     evaluation_role,
-    group_columns
+    group_columns, 
+    model
 ):
 
     html_parts = []
@@ -18,7 +19,7 @@ def generate_html_report(
     # HTML HEADER AND STYLE
     # =========================
 
-    html_parts.append("""
+    html_parts.append(f"""
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,93 +30,93 @@ def generate_html_report(
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>LLM Evaluation Report</title>
+<title>LLM Evaluation Report - {model}</title>
 
 <style>
 
-body {
+body {{
     font-family: Arial, sans-serif;
     background-color: #f5f7fb;
     margin: 0;
     padding: 40px;
     color: #1f2937;
-}
+}}
 
-.container {
+.container {{
     max-width: 1100px;
     margin: auto;
-}
+}}
 
-h1 {
+h1 {{
     margin-bottom: 10px;
-}
+}}
 
-.subtitle {
+.subtitle {{
     color: #6b7280;
     margin-bottom: 40px;
-}
+}}
 
-.summary {
+.summary {{
     background: white;
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 30px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
+}}
 
-.card {
+.card {{
     background: white;
     border-radius: 12px;
     padding: 25px;
     margin-bottom: 25px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
+}}
 
-.metadata {
+.metadata {{
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin-bottom: 20px;
-}
+}}
 
-.tag {
+.tag {{
     background: #eef2ff;
     color: #4338ca;
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 14px;
-}
+}}
 
-.section-title {
+.section-title {{
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 8px;
-}
+}}
 
-.message {
+.message {{
     background: #f9fafb;
     padding: 15px;
     border-radius: 6px;
     white-space: pre-wrap;
     line-height: 1.6;
-}
+}}
 
-.context-message {
+.context-message {{
     border-left: 4px solid #3b82f6;
-}
+}}
 
-.assistant-message {
+.assistant-message {{
     border-left: 4px solid #10b981;
-}
+}}
 
-.evaluation {
+.evaluation {{
     background: #f0fdf4;
     border-left: 4px solid #22c55e;
     padding: 18px;
     border-radius: 6px;
     white-space: pre-wrap;
     line-height: 1.6;
-}
+}}
 
 </style>
 
@@ -125,7 +126,7 @@ h1 {
 
 <div class="container">
 
-<h1>LLM Evaluation Report</h1>
+<h1>LLM Evaluation Report - {model}</h1>
 
 <p class="subtitle">
 Automatically generated evaluation report

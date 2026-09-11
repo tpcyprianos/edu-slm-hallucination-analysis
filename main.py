@@ -5,6 +5,8 @@ import pandas as pd
 from dotenv import load_dotenv
 from google import genai
 from report_generator import generate_html_report
+from openai import OpenAI
+
 
 # =========================
 # LOAD ENVIRONMENT VARIABLES
@@ -16,9 +18,11 @@ load_dotenv()
 # INITIALIZE GEMINI
 # =========================
 
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
-)
+#client = genai.Client(
+#    api_key=os.getenv("GEMINI_API_KEY")
+#)
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # =========================
 # LOAD CONFIGURATION
@@ -95,6 +99,7 @@ df = df.sort_values(
 
 
 print(f"Total number of rows: {len(df)}")
+print(f"Using model: {MODEL}")
 
 # =========================
 # VALIDATE COLUMNS
@@ -208,11 +213,19 @@ for index, row in df.iterrows():
     # CALL GEMINI
     # =========================
 
-    response = client.models.generate_content(
-        model=MODEL,
-        contents=full_prompt
-    )
+    #response = client.models.generate_content(
+    #    model=MODEL,
+    #    contents=full_prompt
+    #)
 
+    # =========================
+    # CALL OPENAI
+    # ========================= 
+
+    response = client.responses.create(
+        model=MODEL,
+        input=full_prompt
+    )
 
     # Store result
 
@@ -284,7 +297,8 @@ generate_html_report(
     role_column=ROLE_COLUMN,
     turn_column=TURN_COLUMN,
     evaluation_role=EVALUATION_ROLE,
-    group_columns=GROUP_COLUMNS
+    group_columns=GROUP_COLUMNS,
+    model = MODEL
 )
 
 print("Generating HTML report...")
