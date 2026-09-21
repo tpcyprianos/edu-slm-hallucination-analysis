@@ -4,9 +4,19 @@
     "separator": ";",
     "html_output_file": "results/report_examples.html",
 
+    "output_format": {
+        "Hallucinate?": "Yes or No",
+        "Factual Fabrication": "Yes or No",
+        "Factual Contradiction": "Yes or No",
+        "Instruction Inconsistency": "Yes or No",
+        "Context Inconsistency": "Yes or No",
+        "Logical Inconsistency": "Yes or No",
+        "Comments": "Brief explanation"
+    },
 
-    "model": "gpt-5.6-luna",
-    "delay": 13,
+    "provider": "lm_studio",
+    "model": "gemma-3-1b-it",
+    "delay": 1,
 
     "text_column": "text",
     "role_column": "role",

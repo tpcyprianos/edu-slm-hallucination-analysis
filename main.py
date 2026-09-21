@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from google import genai
 from report_generator import generate_html_report
 from openai import OpenAI
-
+import parse_evaluation
 
 # =========================
 # LOAD ENVIRONMENT VARIABLES
@@ -22,7 +22,12 @@ load_dotenv()
 #    api_key=os.getenv("GEMINI_API_KEY")
 #)
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+#client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+client = OpenAI(
+    base_url="http://localhost:1234/v1",
+    api_key="lm-studio"
+)
 
 # =========================
 # LOAD CONFIGURATION
@@ -49,6 +54,7 @@ HTML_OUTPUT_FILE = config.get(
 
 MODEL = config["model"]
 DELAY = config.get("delay", 13)
+PROVIDER = config["provider"]
 
 # =========================
 # DATA STRUCTURE CONFIGURATION
@@ -76,7 +82,7 @@ GROUP_COLUMNS = config.get(
 ROLE = config["role"]
 CRITERIA = config["criteria"]
 SCALE = config["scale"]
-
+OUTPUT_FORMAT = config["format"]
 
 # =========================
 # READ DATA
@@ -129,14 +135,26 @@ if missing_columns:
 # PROCESS DATA
 # =========================
 
-results = []
+evaluation_results = []
+evaluation_columns = [
+    "Hallucinate?",
+    "Factual Fabrication",
+    "Factual Contradiction",
+    "Instruction Inconsistency",
+    "Context Inconsistency",
+    "Logical Inconsistency",
+    "Comments"
+]
 
 for index, row in df.iterrows():
 
     # Evaluate only rows with the specified role
     if row[ROLE_COLUMN] != EVALUATION_ROLE:
 
-        results.append("")
+        evaluation_results.append({
+            column: ""
+            for column in evaluation_columns
+         })
         continue
 
 
@@ -184,31 +202,39 @@ for index, row in df.iterrows():
     # =========================
 
     full_prompt = f"""
-    {ROLE}
+        {ROLE}
 
-    {CRITERIA}
+        {CRITERIA}
 
-    {SCALE}
+        {SCALE}
 
-    Conversation context:
+        Conversation context:
 
-    Previous speaker:
-    {context_role}
+        Previous speaker:
+        {context_role}
 
-    Previous message:
-    {context_text}
+        Previous message:
+        {context_text}
 
-    Response to evaluate:
+        Response to evaluate:
 
-    {EVALUATION_ROLE}:
-    {evaluation_text}
+        {EVALUATION_ROLE}:
+        {evaluation_text}
 
-    Evaluate only the current response.
+        Evaluate only the current response.
 
-    Use the previous message exclusively as conversational context.
+        Use the previous message exclusively as conversational context.
+
+        IMPORTANT:
+        Return ONLY a valid JSON object.
+        Do not include Markdown, code fences, or any additional text.
+
+        The JSON must contain exactly these fields:
+        {json.dumps(OUTPUT_FORMAT, ensure_ascii=False, indent=2)}
+
+        Use "Yes" or "No" for all classification fields.
+        Use "Comments" for a brief explanation of your evaluation.
     """
-
-
     # =========================
     # CALL GEMINI
     # =========================
@@ -222,9 +248,23 @@ for index, row in df.iterrows():
     # CALL OPENAI
     # ========================= 
 
-    response = client.responses.create(
+    #response = client.responses.create(
+    #    model=MODEL,
+    #    input=full_prompt
+    #)
+
+    # =========================
+    # CALL GEMMA
+    # =========================
+
+    response = client.chat.completions.create(
         model=MODEL,
-        input=full_prompt
+        messages=[
+            {
+                "role": "user",
+                "content": full_prompt
+            }
+        ]
     )
 
     # Store result - gemini
@@ -235,9 +275,16 @@ for index, row in df.iterrows():
 
     
     # Store result - gpt
-    results.append(
-        response.output_text
+    #Results.append(
+    #    response.output_text
+    #)
+
+    # Store result - gemma
+    #results.append(response.choices[0].message.content)
+    evaluation = parse_evaluation(
+        response.choices[0].message.content
     )
+    evaluation_results.append(evaluation)
 
     # =========================
     # RATE LIMIT CONTROL
@@ -256,7 +303,15 @@ for index, row in df.iterrows():
 # ADD RESULTS
 # =========================
 
-df["evaluation"] = results
+evaluation_df = pd.DataFrame(
+    evaluation_results,
+    index=df.index
+)
+
+df = pd.concat(
+    [df, evaluation_df],
+    axis=1
+)
 
 
 # =========================
