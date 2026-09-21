@@ -138,10 +138,10 @@ Automatically generated evaluation report
     # =========================
 
     evaluated_rows = df[
-        df["evaluation"].notna()
-        & (df["evaluation"] != "")
+        (df[role_column] == evaluation_role)
+        & df["Hallucinate?"].notna()
+        & (df["Hallucinate?"] != "")
     ]
-
     html_parts.append(f"""
 <div class="summary">
 
@@ -163,9 +163,25 @@ Automatically generated evaluation report
         if row[role_column] != evaluation_role:
             continue
 
-        evaluation = row.get("evaluation", "")
+        evaluation_columns = [
+            "Hallucinate?",
+            "Factual Fabrication",
+            "Factual Contradiction",
+            "Instruction Inconsistency",
+            "Context Inconsistency",
+            "Logical Inconsistency",
+            "Comments"
+        ]
 
-        if not evaluation:
+        evaluation = {
+            column: row.get(column, "")
+            for column in evaluation_columns
+        }
+
+        if (
+            evaluation["Hallucinate?"] is None
+            or str(evaluation["Hallucinate?"]).strip() in ["", "nan"]
+        ):
             continue
 
         # =========================
@@ -195,7 +211,19 @@ Automatically generated evaluation report
 
         previous_text = escape(str(previous_text))
         current_text = escape(str(row[text_column]))
-        evaluation_text = escape(str(evaluation))
+        evaluation_text = ""
+
+        for column, value in evaluation.items():
+
+            evaluation_text += f"""
+                <div style="margin-bottom: 12px;">
+
+                <strong>{escape(column)}:</strong>
+
+                <span>{escape(str(value))}</span>
+
+                </div>
+                """
 
         # =========================
         # BUILD METADATA

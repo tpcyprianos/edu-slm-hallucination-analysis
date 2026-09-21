@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from google import genai
 from report_generator import generate_html_report
 from openai import OpenAI
-import parse_evaluation
+from parse_evaluation import parse_evaluation
 
 # =========================
 # LOAD ENVIRONMENT VARIABLES
@@ -82,7 +82,7 @@ GROUP_COLUMNS = config.get(
 ROLE = config["role"]
 CRITERIA = config["criteria"]
 SCALE = config["scale"]
-OUTPUT_FORMAT = config["format"]
+OUTPUT_FORMAT = config["output_format"]
 
 # =========================
 # READ DATA
