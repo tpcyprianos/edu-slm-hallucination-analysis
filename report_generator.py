@@ -214,14 +214,10 @@ Automatically generated evaluation report
         evaluation_text = ""
 
         for column, value in evaluation.items():
-
             evaluation_text += f"""
-                <div style="margin-bottom: 12px;">
-
-                <strong>{escape(column)}:</strong>
-
-                <span>{escape(str(value))}</span>
-
+                <div style="margin-bottom: 6px;">
+                    <strong>{escape(column)}:</strong>
+                    <span style="margin-left: 6px;">{escape(str(value))}</span>
                 </div>
                 """
 
