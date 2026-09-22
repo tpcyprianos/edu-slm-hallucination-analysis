@@ -214,12 +214,12 @@ Automatically generated evaluation report
         evaluation_text = ""
 
         for column, value in evaluation.items():
-            evaluation_text += f"""
-                <div style="margin-bottom: 6px;">
-                    <strong>{escape(column)}:</strong>
-                    <span style="margin-left: 6px;">{escape(str(value))}</span>
-                </div>
-                """
+            evaluation_text += (
+                f'<div style="margin: 0; padding: 0; line-height: 1.4;">'
+                f'<strong>{escape(column)}:</strong> '
+                f'<span>{escape(str(value))}</span>'
+                f'</div>'
+            )
 
         # =========================
         # BUILD METADATA

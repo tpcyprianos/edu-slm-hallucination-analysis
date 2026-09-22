@@ -1,8 +1,8 @@
 {
     "input_file": "examples_interactions.csv",
-    "output_file": "results/results_examples.csv",
+    "output_file": "results/results_examples_gpt.csv",
     "separator": ";",
-    "html_output_file": "results/report_examples.html",
+    "html_output_file": "results/report_examples_gpt.html",
 
     "output_format": {
         "Hallucinate?": "Yes or No",
