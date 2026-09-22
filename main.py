@@ -22,12 +22,12 @@ load_dotenv()
 #    api_key=os.getenv("GEMINI_API_KEY")
 #)
 
-#client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-client = OpenAI(
-    base_url="http://localhost:1234/v1",
-    api_key="lm-studio"
-)
+#client = OpenAI(
+#    base_url="http://localhost:1234/v1",
+#    api_key="lm-studio"
+#)
 
 # =========================
 # LOAD CONFIGURATION
@@ -248,15 +248,6 @@ for index, row in df.iterrows():
     # CALL OPENAI
     # ========================= 
 
-    #response = client.responses.create(
-    #    model=MODEL,
-    #    input=full_prompt
-    #)
-
-    # =========================
-    # CALL GEMMA
-    # =========================
-
     response = client.chat.completions.create(
         model=MODEL,
         messages=[
@@ -267,24 +258,39 @@ for index, row in df.iterrows():
         ]
     )
 
-    # Store result - gemini
+    # =========================
+    # CALL GEMMA
+    # =========================
 
-    #results.append(
+    #response = client.chat.completions.create(
+    #    model=MODEL,
+    #    messages=[
+    #        {
+    #            "role": "user",
+    #            "content": full_prompt
+    #        }
+    #    ]
+    #)
+
+    # Store result - gemini
+    #evaluation_results.append(
     #    response.text
     #)
 
     
     # Store result - gpt
-    #Results.append(
-    #    response.output_text
-    #)
+    response_text = response.choices[0].message.content
 
+    evaluation = parse_evaluation(
+        response_text
+    )
+    
     # Store result - gemma
     #results.append(response.choices[0].message.content)
-    evaluation = parse_evaluation(
-        response.choices[0].message.content
-    )
-    evaluation_results.append(evaluation)
+    #evaluation = parse_evaluation(
+    #    response.choices[0].message.content
+    #)
+    #evaluation_results.append(evaluation)
 
     # =========================
     # RATE LIMIT CONTROL

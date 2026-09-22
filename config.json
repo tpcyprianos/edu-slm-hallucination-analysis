@@ -14,8 +14,8 @@
         "Comments": "Brief explanation"
     },
 
-    "provider": "lm_studio",
-    "model": "gemma-3-1b-it",
+    "provider": "openai",
+    "model": "gpt-5.6-luna",
     "delay": 1,
 
     "text_column": "text",
