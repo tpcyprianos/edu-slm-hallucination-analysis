@@ -154,9 +154,9 @@ for index, row in df.iterrows():
         evaluation_results.append({
             column: ""
             for column in evaluation_columns
-         })
-        continue
+        })
 
+        continue
 
     print(
         f"Evaluating row "
@@ -279,12 +279,18 @@ for index, row in df.iterrows():
 
     
     # Store result - gpt
-    response_text = response.choices[0].message.content
+    #response_text = response.choices[0].message.content
+
+    #evaluation = parse_evaluation(
+    #    response_text
+    #)
 
     evaluation = parse_evaluation(
-        response_text
+        response.choices[0].message.content
     )
-    
+
+    evaluation_results.append(evaluation)
+        
     # Store result - gemma
     #results.append(response.choices[0].message.content)
     #evaluation = parse_evaluation(
