@@ -49,6 +49,28 @@ HTML_OUTPUT_FILE = config.get(
 )
 
 # =========================
+# SAVE RESULTS SAFELY
+# =========================
+
+def save_results(df, output_file):
+
+    temp_file = output_file + ".tmp"
+
+    df.to_csv(
+        temp_file,
+        sep=SEPARATOR,
+        index=False,
+        encoding="utf-8-sig"
+    )
+
+    os.replace(
+        temp_file,
+        output_file
+    )
+
+
+
+# =========================
 # MODEL CONFIGURATION
 # =========================
 
@@ -132,10 +154,25 @@ if missing_columns:
     )
 
 # =========================
+# CREATE OUTPUT DIRECTORY
+# =========================
+
+output_directory = os.path.dirname(
+    OUTPUT_FILE
+)
+
+if output_directory:
+
+    os.makedirs(
+        output_directory,
+        exist_ok=True
+    )
+
+
+# =========================
 # PROCESS DATA
 # =========================
 
-evaluation_results = []
 evaluation_columns = [
     "Hallucinate?",
     "Factual Fabrication",
@@ -146,22 +183,37 @@ evaluation_columns = [
     "Comments"
 ]
 
+# Create evaluation columns if they do not exist
+for column in evaluation_columns:
+
+    if column not in df.columns:
+
+        df[column] = ""
+
+# Create status column if it does not exist
+if "Evaluation Status" not in df.columns:
+
+    df["Evaluation Status"] = "pending"
+
 for index, row in df.iterrows():
 
     # Evaluate only rows with the specified role
     if row[ROLE_COLUMN] != EVALUATION_ROLE:
 
-        evaluation_results.append({
-            column: ""
-            for column in evaluation_columns
-        })
+        df.at[index, "Evaluation Status"] = "not_applicable"
 
         continue
 
-    print(
-        f"Evaluating row "
-        f"{index + 1}/{len(df)}..."
-    )
+
+    # Skip rows already evaluated
+    if df.at[index, "Evaluation Status"] == "completed":
+
+        print(
+            f"Skipping row {index + 1}: "
+            f"already evaluated."
+        )
+
+        continue
 
 
     # =========================
@@ -289,7 +341,26 @@ for index, row in df.iterrows():
         response.choices[0].message.content
     )
 
-    evaluation_results.append(evaluation)
+
+    # Store evaluation directly in the DataFrame
+    for column in evaluation_columns:
+        df.at[index, column] = evaluation.get(
+        column, "")
+
+
+    # Mark row as completed
+    df.at[index, "Evaluation Status"] = "completed"
+
+    # Save results immediately after evaluation
+    save_results(
+        df,
+        OUTPUT_FILE
+    )
+
+    print(
+        f"Evaluation saved for row "
+        f"{index + 1}"
+    )
         
     # Store result - gemma
     #results.append(response.choices[0].message.content)
@@ -309,38 +380,6 @@ for index, row in df.iterrows():
         )
 
         time.sleep(DELAY)
-
-
-# =========================
-# ADD RESULTS
-# =========================
-
-evaluation_df = pd.DataFrame(
-    evaluation_results,
-    index=df.index
-)
-
-df = pd.concat(
-    [df, evaluation_df],
-    axis=1
-)
-
-
-# =========================
-# CREATE OUTPUT DIRECTORY
-# =========================
-
-output_directory = os.path.dirname(
-    OUTPUT_FILE
-)
-
-if output_directory:
-
-    os.makedirs(
-        output_directory,
-        exist_ok=True
-    )
-
 
 # =========================
 # SAVE RESULTS
