@@ -190,6 +190,10 @@ for column in evaluation_columns:
 
         df[column] = ""
 
+    else:
+
+        df[column] = df[column].astype(object)
+
 # Create status column if it does not exist
 if "Evaluation Status" not in df.columns:
 
@@ -299,17 +303,41 @@ for index, row in df.iterrows():
     # =========================
     # CALL OPENAI
     # ========================= 
+    try:
 
-    response = client.chat.completions.create(
-        model=MODEL,
-        messages=[
-            {
-                "role": "user",
-                "content": full_prompt
-            }
-        ]
-    )
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=[
+                {
+                    "role": "user",
+                    "content": full_prompt
+                }
+            ]
+        )
+    except Exception as error:
 
+        print(
+            f"Error evaluating row "
+            f"{index + 1}: {error}"
+        )
+
+        df.at[index, "Evaluation Status"] = "error"
+
+        df.at[index, "Comments"] = (
+            f"Evaluation error: {error}"
+        )
+
+        save_results(
+            df,
+            OUTPUT_FILE
+        )
+
+        print(
+            f"Error status saved for row "
+            f"{index + 1}"
+        )
+
+        continue
     # =========================
     # CALL GEMMA
     # =========================
@@ -344,8 +372,21 @@ for index, row in df.iterrows():
 
     # Store evaluation directly in the DataFrame
     for column in evaluation_columns:
-        df.at[index, column] = evaluation.get(
-        column, "")
+
+        value = evaluation.get(
+            column,
+            ""
+        )
+
+        if value is None:
+
+            value = ""
+
+        else:
+
+            value = str(value)
+
+        df.at[index, column] = value
 
 
     # Mark row as completed
