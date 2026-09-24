@@ -15,19 +15,16 @@ from parse_evaluation import parse_evaluation
 load_dotenv()
 
 # =========================
-# INITIALIZE GEMINI
+# INITIALIZE API CLIENTS
 # =========================
 
-#client = genai.Client(
-#    api_key=os.getenv("GEMINI_API_KEY")
-#)
+gemini_client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY")
+)
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-#client = OpenAI(
-#    base_url="http://localhost:1234/v1",
-#    api_key="lm-studio"
-#)
+openai_client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
 
 # =========================
 # LOAD CONFIGURATION
@@ -68,7 +65,40 @@ def save_results(df, output_file):
         output_file
     )
 
+# =========================
+# CALL SELECTED MODEL
+# =========================
 
+def call_model(prompt, model, provider):
+
+    if provider == "gemini":
+
+        response = gemini_client.models.generate_content(
+            model=model,
+            contents=prompt
+        )
+
+        return response.text
+
+    elif provider == "openai":
+
+        response = openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        return response.choices[0].message.content
+
+    else:
+
+        raise ValueError(
+            f"Unsupported provider: {provider}"
+        )
 
 # =========================
 # MODEL CONFIGURATION
@@ -292,28 +322,16 @@ for index, row in df.iterrows():
         Use "Comments" for a brief explanation of your evaluation.
     """
     # =========================
-    # CALL GEMINI
+    # CALL SELECTED MODEL
     # =========================
-
-    #response = client.models.generate_content(
-    #    model=MODEL,
-    #    contents=full_prompt
-    #)
-
-    # =========================
-    # CALL OPENAI
-    # ========================= 
     try:
 
-        response = client.chat.completions.create(
-            model=MODEL,
-            messages=[
-                {
-                    "role": "user",
-                    "content": full_prompt
-                }
-            ]
+        response_text = call_model(
+            full_prompt,
+            MODEL,
+            PROVIDER
         )
+
     except Exception as error:
 
         print(
@@ -336,22 +354,7 @@ for index, row in df.iterrows():
             f"Error status saved for row "
             f"{index + 1}"
         )
-
         continue
-    # =========================
-    # CALL GEMMA
-    # =========================
-
-    #response = client.chat.completions.create(
-    #    model=MODEL,
-    #    messages=[
-    #        {
-    #            "role": "user",
-    #            "content": full_prompt
-    #        }
-    #    ]
-    #)
-
     # Store result - gemini
     #evaluation_results.append(
     #    response.text
@@ -366,9 +369,8 @@ for index, row in df.iterrows():
     #)
 
     evaluation = parse_evaluation(
-        response.choices[0].message.content
+        response_text
     )
-
 
     # Store evaluation directly in the DataFrame
     for column in evaluation_columns:
