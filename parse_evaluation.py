@@ -23,9 +23,12 @@ def parse_evaluation(response):
             json_text = match.group(0)
 
             try:
-
                 evaluation = json.loads(json_text)
-
+                #Normalization spaces
+                evaluation = {
+                    re.sub(r"\s+", " ", key).strip(): value
+                    for key, value in evaluation.items()
+                            }
                 return evaluation
 
             except json.JSONDecodeError:
