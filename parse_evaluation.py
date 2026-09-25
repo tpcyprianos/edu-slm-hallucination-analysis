@@ -1,44 +1,56 @@
-import os
-import time
 import json
-import pandas as pd
+import re
 
-def parse_evaluation(response_text):
+
+def parse_evaluation(response):
 
     try:
-        evaluation = json.loads(response_text)
 
-        return {
-            "Hallucinate?": evaluation.get("Hallucinate?", ""),
-            "Factual Fabrication": evaluation.get(
-                "Factual Fabrication", ""
-            ),
-            "Factual Contradiction": evaluation.get(
-                "Factual Contradiction", ""
-            ),
-            "Instruction Inconsistency": evaluation.get(
-                "Instruction Inconsistency", ""
-            ),
-            "Context Inconsistency": evaluation.get(
-                "Context Inconsistency", ""
-            ),
-            "Logical Inconsistency": evaluation.get(
-                "Logical Inconsistency", ""
-            ),
-            "Comments": evaluation.get("Comments", "")
-        }
+        # Try to parse the entire response as JSON
+        return json.loads(response)
 
     except json.JSONDecodeError:
 
-        print("Warning: Model returned invalid JSON.")
-        print(response_text)
+        # Search for the first JSON object in the response
+        match = re.search(
+            r"\{.*\}",
+            response,
+            re.DOTALL
+        )
 
-        return {
-            "Hallucinate?": "",
-            "Factual Fabrication": "",
-            "Factual Contradiction": "",
-            "Instruction Inconsistency": "",
-            "Context Inconsistency": "",
-            "Logical Inconsistency": "",
-            "Comments": response_text
-        }
+        if match:
+
+            json_text = match.group(0)
+
+            try:
+
+                evaluation = json.loads(json_text)
+
+                return evaluation
+
+            except json.JSONDecodeError:
+
+                print(
+                    "Warning: JSON object found, "
+                    "but it could not be parsed."
+                )
+
+                print(
+                    "Extracted JSON:"
+                )
+
+                print(json_text)
+
+                return None
+
+        print(
+            "Warning: Model returned invalid JSON."
+        )
+
+        print(
+            "Raw model response:"
+        )
+
+        print(response)
+
+        return None
