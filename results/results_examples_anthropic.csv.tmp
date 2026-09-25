@@ -1,0 +1,7 @@
+﻿task,file_name,conversation_name,model_version,model_family,model_size,experiment,model,turn,role,text,Hallucinate?,Factual Fabrication,Factual Contradiction,Instruction Inconsistency,Context Inconsistency,Logical Inconsistency,Comments,Evaluation Status
+Task 3.1,3.1_Llama_Examples.json,3.1_llama-3.2-1b_example,3.1,Llama,,Examples,llama-3.2-1b-instruct,1,user,"System:
+You are a helpful math tutor.
+Rules:
+NEVER give the final answer.
+Give short examples to explain the concept.
+Example: Student: Is 0.5 bigger than 0.05? Tutor: Let's try a different comparison. Compare 0.4 and 0.35. Write them with the same decimal places: 0.40 0.35 40 hundredths is greater than 35 hundredths. So, 0.40 is bigger than 0.35. Now, can you answer your exercise? Task: Help the student with the question: <insert the question here>",,,,,,,,not_applicable

@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from google import genai
 from report_generator import generate_html_report
 from openai import OpenAI
+from anthropic import Anthropic
 from parse_evaluation import parse_evaluation
 
 # =========================
@@ -24,6 +25,10 @@ gemini_client = genai.Client(
 
 openai_client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
+)
+
+anthropic_client = Anthropic(
+    api_key=os.getenv("ANTHROPIC_API_KEY")
 )
 
 # =========================
@@ -93,6 +98,21 @@ def call_model(prompt, model, provider):
         )
 
         return response.choices[0].message.content
+    
+    elif provider == "anthropic":
+
+        response = anthropic_client.messages.create(
+            model=model,
+            max_tokens=4096,
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        return response.content[0].text
 
     else:
 
