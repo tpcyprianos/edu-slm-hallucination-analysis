@@ -1,8 +1,8 @@
 {
     "input_file": "examples_interactions.csv",
-    "output_file": "results/results_examples_anthropic.csv",
+    "output_file": "results/results_examples_gemini.csv",
     "separator": ",",
-    "html_output_file": "results/report_examples_anthropic.html",
+    "html_output_file": "results/report_examples_gemini.html",
 
     "output_format": {
         "Hallucinate?": "Yes or No",
@@ -14,9 +14,9 @@
         "Comments": "Brief explanation"
     },
 
-    "provider": "anthropic",
-    "model": "claude-haiku-4-5-20251001",
-    "delay": 1,
+    "provider": "gemini",
+    "model": "gemini-3.7-flash",
+    "delay": 0,
 
     "text_column": "text",
     "role_column": "role",
