@@ -23,12 +23,21 @@ def parse_evaluation(response):
             json_text = match.group(0)
 
             try:
+                # Escape invalid backslashes in JSON strings
+                json_text = re.sub(
+                    r'\\(?!["\\/bfnrtu])',
+                    r'\\\\',
+                    json_text
+                )
+
                 evaluation = json.loads(json_text)
-                #Normalization spaces
+
+                # Normalization spaces
                 evaluation = {
                     re.sub(r"\s+", " ", key).strip(): value
                     for key, value in evaluation.items()
-                            }
+                }
+
                 return evaluation
 
             except json.JSONDecodeError:

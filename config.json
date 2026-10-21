@@ -1,8 +1,8 @@
 {
     "input_file": "examples_interactions.csv",
-    "output_file": "results/results_examples_gemini_3.8.csv",
+    "output_file": "results/results_examples_gemini_3.5-lite.csv",
     "separator": ",",
-    "html_output_file": "results/report_examples_gemini_3.8.html",
+    "html_output_file": "results/report_examples_gemini_3.5-lite.html",
 
     "output_format": {
         "Hallucinate?": "Yes or No",
@@ -15,7 +15,7 @@
     },
 
     "provider": "gemini",
-    "model": "gemini-3.8-flash",
+    "model": "gemini-3.5-flash-lite",
     "delay": 0,
 
     "text_column": "text",
