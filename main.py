@@ -391,7 +391,17 @@ for index, row in df.iterrows():
     evaluation = parse_evaluation(
         response_text
     )
+    if evaluation is None:
+        print(
+            f"Skipping row {index + 1}: "
+            "evaluation could not be parsed."
+        )
 
+        df.at[index, "Evaluation Status"] = "error"
+
+        save_results(df, OUTPUT_FILE)
+
+    continue
     # Store evaluation directly in the DataFrame
     for column in evaluation_columns:
 
