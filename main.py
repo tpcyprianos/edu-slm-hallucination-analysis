@@ -401,7 +401,7 @@ for index, row in df.iterrows():
 
         save_results(df, OUTPUT_FILE)
 
-    continue
+        continue
     # Store evaluation directly in the DataFrame
     for column in evaluation_columns:
 
