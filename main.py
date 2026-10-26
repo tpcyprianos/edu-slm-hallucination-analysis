@@ -157,27 +157,59 @@ SCALE = config["scale"]
 OUTPUT_FORMAT = config["output_format"]
 
 # =========================
-# READ DATA
+# READ DATA / RESUME
 # =========================
 
-df = pd.read_csv(
-    INPUT_FILE,
-    sep=SEPARATOR
-)
+
+# =========================
+# READ DATA / RESUME
+# =========================
+
+if os.path.exists(OUTPUT_FILE):
+
+    print(f"Resuming from existing output: {OUTPUT_FILE}")
+
+    df = pd.read_csv(
+        OUTPUT_FILE,
+        sep=SEPARATOR
+    )
+
+else:
+
+    print(f"Output not found. Loading input: {INPUT_FILE}")
+
+    df = pd.read_csv(
+        INPUT_FILE,
+        sep=SEPARATOR
+    )
+
+    df["Evaluation Status"] = "pending"
+
 
 # =========================
 # SORT DATA
 # =========================
 
-sort_columns = GROUP_COLUMNS + [TURN_COLUMN]
 
-df = df.sort_values(
-    by=sort_columns
-).reset_index(drop=True)
+# =========================
+# SORT DATA
+# =========================
 
+if not os.path.exists(OUTPUT_FILE):
+
+    sort_columns = GROUP_COLUMNS + [TURN_COLUMN]
+
+    df = df.sort_values(
+        by=sort_columns
+    ).reset_index(drop=True)
+
+else:
+
+    df = df.reset_index(drop=True)
 
 print(f"Total number of rows: {len(df)}")
 print(f"Using model: {MODEL}")
+
 
 # =========================
 # VALIDATE COLUMNS

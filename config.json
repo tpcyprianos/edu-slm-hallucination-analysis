@@ -1,8 +1,8 @@
 {
     "input_file": "socratic_method_interactions.csv",
-    "output_file": "results/results_socratic_method_gpt-5.6-luna.csv",
+    "output_file": "results/results_socratic_method_claude-haiku-4-5-20251001.csv",
     "separator": ",",
-    "html_output_file": "results/report_socratic_method_gpt-5.6-luna.html",
+    "html_output_file": "results/report_socratic_method_claude-haiku-4-5-20251001.html",
 
     "output_format": {
         "Hallucinate?": "0 or 1",
@@ -14,8 +14,8 @@
         "Comments": "Brief explanation"
     },
 
-    "provider": "openai",
-    "model": "gpt-5.6-luna",
+    "provider": "anthropic",
+    "model": "claude-haiku-4-5-20251001",
     "delay": 0,
 
     "text_column": "text",
