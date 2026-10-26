@@ -23,9 +23,9 @@ def parse_evaluation(response):
             json_text = match.group(0)
 
             try:
-                # Escape invalid backslashes in JSON strings
+                # Fix invalid JSON escape sequences
                 json_text = re.sub(
-                    r'\\(?!["\\/bfnrtu])',
+                    r'\\(?!["\\/bfnrtu]|u[0-9a-fA-F]{4})',
                     r'\\\\',
                     json_text
                 )
